@@ -1,0 +1,63 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:800);
+body { padding: 50px; font-family: 'Open Sans', sans-serif;background-color:#333333 }
+div#shadowPaper{
+    position: absolute;
+    background-color: #111111;
+    opacity: 1;
+    height: 100%;
+    width: 100%;
+    top: 0;left: 0;
+    z-index: 1;
+    opacity: 0.5;
+}
+div#game{
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    width: 1000px;
+    height: 800px;
+    border: #ffffff solid 15px;
+}
+div#start{
+    position: absolute;
+    width: 800px;
+    height: 300px;
+    top:200px;left: 100px;
+    border: tan solid 2px;
+    z-index: 2;
+    text-align: center;
+    color: #ffffff;
+    font-size: 1.2em;
+    background-color:#233244;
+}
+div#startButton{
+    position: absolute;
+    left: 300px;top: 150px;
+    width: 200px;
+    height: 70px;
+    border-radius: 10px;
+    background-color: #cccccc;
+    color: #111111;
+    font-size: 2.4em;
+    
+}
+div#startButton:hover{
+    background-color: #ffffff;
+    cursor: pointer;
+}
+canvas#gameBoad{
+    float: left;
+    background-color: rgba(22, 224, 157, 0.5);
+}
+.cellImage{
+    display: block;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+#game #informationBox{
+    float: left;
+    width: 200px;
+    height: 800px;
+    background-color: #ffffff;
+}
