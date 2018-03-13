@@ -2,6 +2,7 @@ let canvas=document.getElementById("gameBoad");//define canvas
 let gameDiv=document.getElementById("game");
 let startButton=document.querySelector("#startButton");//start button
 let shadowPaper=document.querySelector("#shadowPaper");// shadowpaper
+let informationBoxDiv=document.querySelector("#informationBox");//informationBox div,use for display informations
 let startDiv=document.querySelector("#start");//start div
 let context = canvas.getContext("2d");
 let policeStationImage=new Image();//define police station Image
@@ -99,6 +100,12 @@ policeImage.src="police.png";
 gameDiv.appendChild(policeImage);
 policeImage.style.top=policeRow*imagewidth+"px";
 policeImage.style.left=policeColumn*imagewidth+"px";
+//player move animation function
+let playerMoveAnimation=(object,x,y)=>{
+    //playerImage
+    let tl3=new TimelineMax({repeat:0});
+    tl3.to(object,.5,{top:x*imagewidth,left:y*imagewidth},'0');
+}
 //key control
 let upKey=38;
 let downKey=40;
@@ -117,7 +124,8 @@ let keydownHander=(e)=>{// keydown hander function
             playerRow=playerRow-1;
         }
         else{
-            alert("You can not move up!");
+            //alert("You can not move up!");
+            informationBoxDiv.innerHTML+="Warning:You can not move up!"+"<br/>"
             return;//end function
         }
         break;
@@ -127,7 +135,8 @@ let keydownHander=(e)=>{// keydown hander function
             playerRow=playerRow+1;
         }
         else{
-            alert("You can not move down!");
+            //alert("You can not move down!");
+            informationBoxDiv.innerHTML+="Warning:You can not move down!"+"<br/>"
             return;//end function
         }
         break;
@@ -137,7 +146,8 @@ let keydownHander=(e)=>{// keydown hander function
             playerColumn=playerColumn+1;
         }
         else{
-            alert("You can not move right!");
+            //alert("You can not move right!");
+            informationBoxDiv.innerHTML+="Warning:You can not move right!"+"<br/>"
             return;//end function
         }
         break;
@@ -147,7 +157,8 @@ let keydownHander=(e)=>{// keydown hander function
             playerColumn=playerColumn-1;
         }
         else{
-            alert("You can not move left!");
+            //alert("You can not move left!");
+            informationBoxDiv.innerHTML+="Warning:You can not move left!"+"<br/>"
             return;//end function
         }
         break;
@@ -155,8 +166,9 @@ let keydownHander=(e)=>{// keydown hander function
     // change player location in display and game object
     gameObejects[saveRow][saveColumn]=0; 
     gameObejects[playerRow][playerColumn]=9;
-    playerImage.style.top=playerRow*imagewidth+"px";
-    playerImage.style.left=playerColumn*imagewidth+"px";
+    // playerImage.style.top=playerRow*imagewidth+"px";
+    // playerImage.style.left=playerColumn*imagewidth+"px";
+    playerMoveAnimation(playerImage,playerRow,playerColumn);
 };
 
 let startGame=()=>{

@@ -56,8 +56,12 @@ canvas#gameBoad{
     height: 100px;
 }
 #game #informationBox{
+    padding: 15px;
     float: left;
-    width: 200px;
+    width: 170px;
     height: 800px;
     background-color: #ffffff;
+    font-size: 0.8em;
+    color: darkcyan;
+    overflow: auto;
 }
