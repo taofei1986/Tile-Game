@@ -121,7 +121,6 @@ canvas#gameBoad{
     display: block;
     width: 60%;
     position: absolute;
-    padding-top: 20px;
     left: 20%;
-    top: -10px;
+    top: 5px;
 }
