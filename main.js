@@ -20,7 +20,6 @@ stoneRoadVerticalImage.src="images/stone_road_vertical.png";//link stone Road Ve
 restaurantImage.src="images/restaurant.png";//link restaurant Image
 let imagewidth=100;//set image width
 
-
 let map=[// init map value 0 is cross shone road,1 is house, 2 is police station, 3 is level stone road, 4 is vertical stone road, 5 is restaurant
     [0,4,4,0,4,0,4,0],//row 1
     [3,1,1,3,5,3,1,3],//row 2
@@ -242,10 +241,10 @@ let policeMoveActionDecide=()=>{
 }
 
 //key control
-let upKey=38;
-let downKey=40;
-let rightKey=39;
-let leftKey=37;
+const upKey=38;//define Constants for upKey
+const downKey=40;
+const rightKey=39;
+const leftKey=37;
 let keydownHander=(e)=>{// keydown hander function
     if(!gameStartBool){//if game not start, end function
         return;
