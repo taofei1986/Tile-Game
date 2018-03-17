@@ -19,6 +19,8 @@ stoneRoadLevelImage.src="images/stone_road_level.png";//link stone Road Level Im
 stoneRoadVerticalImage.src="images/stone_road_vertical.png";//link stone Road Vertical Image
 restaurantImage.src="images/restaurant.png";//link restaurant Image
 let imagewidth=100;//set image width
+
+
 let map=[// init map value 0 is cross shone road,1 is house, 2 is police station, 3 is level stone road, 4 is vertical stone road, 5 is restaurant
     [0,4,4,0,4,0,4,0],//row 1
     [3,1,1,3,5,3,1,3],//row 2

@@ -117,3 +117,9 @@ canvas#gameBoad{
     width: 100%;
     color: lightcoral;
 }
+#music{
+    display: block;
+    width: 1000px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
