@@ -102,6 +102,7 @@ let eventObject={
         }
         else{//buy food
         let randomNumber=Math.floor(Math.random()*playerState.money)+1;
+        informationBoxDiv.innerHTML+="You use $"+randomNumber+" to buy food.<br/>";
         playerState.money=playerState.money-randomNumber;
         playerState.food=playerState.food+randomNumber;
         }
