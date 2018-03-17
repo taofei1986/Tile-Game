@@ -78,31 +78,31 @@ let eventObject={
     houseEvent:()=>{
         let randomNumber=Math.floor(Math.random()*11)-5;//get a random number between -5 to 5
         if(randomNumber>0){//get money
-            informationBoxDiv.innerHTML+="You get $"+randomNumber+" from a empty house"+"<br/>";
+            informationBoxDiv.innerHTML+="You get $"+randomNumber+" from a empty house"+"<br/><br/>";
             playerState.money=playerState.money+randomNumber;
         }
         else if(randomNumber<0){//lost money
             if(randomNumber+playerState.money<0){
-                informationBoxDiv.innerHTML+="When you is trying find some money, the house owner show up and kick your ass. You lost all your money!"+"<br/>";
+                informationBoxDiv.innerHTML+="When you is trying find some money, the house owner show up and kick your ass. You lost all your money!"+"<br/><br/>";
                 playerState.money=0;
             }
             else{
-                informationBoxDiv.innerHTML+="When you is trying find some money, the house owner show up and kick your ass. You lost $"+Math.abs(randomNumber)+"."+"<br/>";
+                informationBoxDiv.innerHTML+="When you is trying find some money, the house owner show up and kick your ass. You lost $"+Math.abs(randomNumber)+"."+"<br/><br/>";
                 playerState.money=playerState.money+randomNumber;
             }
         }
         else{//nothing happen
-            informationBoxDiv.innerHTML+="You get nothing from this empty house"+"<br/>";
+            informationBoxDiv.innerHTML+="You get nothing from this empty house"+"<br/><br/>";
         }
     },
     restaurantEvent:()=>{
         if(playerState.money==0){//nothing happen
-            informationBoxDiv.innerHTML+="No money, no food."+"<br/>";
+            informationBoxDiv.innerHTML+="No money, no food."+"<br/><br/>";
             return;
         }
         else{//buy food
         let randomNumber=Math.floor(Math.random()*playerState.money)+1;
-        informationBoxDiv.innerHTML+="You use $"+randomNumber+" to buy food.<br/>";
+        informationBoxDiv.innerHTML+="You use $"+randomNumber+" to buy food.<br/><br/>";
         playerState.money=playerState.money-randomNumber;
         playerState.food=playerState.food+randomNumber;
         }
@@ -170,10 +170,10 @@ carImage.style.top=carRow*imagewidth+"px";
 carImage.style.left=carColumn*imagewidth+"px";
 
 //move animation function
-let moveAnimation=(object,x,y)=>{
+let moveAnimation=(object,x,y,animationTime)=>{
     //playerImage
     let tl3=new TimelineMax({repeat:0});
-    tl3.to(object,.5,{top:x*imagewidth,left:y*imagewidth},'0');
+    tl3.to(object,animationTime,{top:x*imagewidth,left:y*imagewidth},'0');
 }
 //validate all directions can move
 let validPoliceDirections=()=>{
@@ -263,7 +263,7 @@ let keydownHander=(e)=>{// keydown hander function
             }
             else{
                 //alert("You can not move up!");
-                informationBoxDiv.innerHTML+="Warning:You can not move up!"+"<br/>"
+                informationBoxDiv.innerHTML+="Warning:You can not move up!"+"<br/><br/>"
                 return;//end function
             }
             break;
@@ -274,7 +274,7 @@ let keydownHander=(e)=>{// keydown hander function
             }
             else{
                 //alert("You can not move down!");
-                informationBoxDiv.innerHTML+="Warning:You can not move down!"+"<br/>"
+                informationBoxDiv.innerHTML+="Warning:You can not move down!"+"<br/><br/>"
                 return;//end function
             }
             break;
@@ -285,7 +285,7 @@ let keydownHander=(e)=>{// keydown hander function
             }
             else{
                 //alert("You can not move right!");
-                informationBoxDiv.innerHTML+="Warning:You can not move right!"+"<br/>"
+                informationBoxDiv.innerHTML+="Warning:You can not move right!"+"<br/><br/>"
                 return;//end function
             }
             break;
@@ -296,7 +296,7 @@ let keydownHander=(e)=>{// keydown hander function
             }
             else{
                 //alert("You can not move left!");
-                informationBoxDiv.innerHTML+="Warning:You can not move left!"+"<br/>"
+                informationBoxDiv.innerHTML+="Warning:You can not move left!"+"<br/><br/>"
                 return;//end function
             }
             break;
@@ -304,7 +304,7 @@ let keydownHander=(e)=>{// keydown hander function
         // change player location in display and game object
         gameObejects[saveRow][saveColumn]=0; 
         gameObejects[playerRow][playerColumn]=9; 
-        moveAnimation(playerImage,playerRow,playerColumn);   
+        moveAnimation(playerImage,playerRow,playerColumn,.5);   
         playerState.food=playerState.food-1;//lost one food every move;
         eventHappen();//run event happen this location
         displayState();
@@ -331,7 +331,7 @@ let keydownHander=(e)=>{// keydown hander function
         // change police location in display and game object
         gameObejects[savePoliceRow][savePoliceColumn]=0; 
         gameObejects[policeRow][policeColumn]=8; 
-        moveAnimation(policeImage,policeRow,policeColumn);
+        moveAnimation(policeImage,policeRow,policeColumn,1);
         validateEnding();
 
     }
@@ -378,7 +378,7 @@ let validateEnding=()=>{
 let lostEnding=()=>{
     let textInformation="You are catched by the police.";//end text
     if(playerState.food==0){
-        textInformation="You are out of food.";//end text change when food is 0;
+        textInformation="You are out of food and can not move anymore. The police come and arrest you.";//end text change when food is 0;
     }
     let endMessage=document.querySelector("#endMessage");//select the id="endMessage" div
         endMessage.style.display="block";//change display style form 'none' to 'block'
@@ -390,6 +390,16 @@ let lostEnding=()=>{
         endMessageDetail.setAttribute("class","endDetail");// add class attribute for the p element
         endMessage.appendChild(endMessageDetail);// insert element in endMessage
         endMessageDetail.innerHTML=textInformation;//insert text
+        //change player icon and police icon to police_catch_criminal icon
+        let policeCatchImage=document.createElement("img");
+        policeCatchImage.setAttribute("class","cellImage");
+        policeCatchImage.src="images/police_catch_criminal.png";
+        gameDiv.appendChild(policeCatchImage);
+        policeCatchImage.style.top=playerRow*imagewidth+"px";
+        policeCatchImage.style.left=playerColumn*imagewidth+"px";
+        playerImage.style.display="none";
+        policeImage.style.display="none";
+        moveAnimation(policeCatchImage,4,2,3);//police_catch_criminal icon move to the police station animation.
         gameStartBool=false;//change game state
 }
 //ending for win the game
@@ -404,6 +414,20 @@ let winEnding=()=>{
         endMessageDetail.setAttribute("class","endDetail");
         endMessage.appendChild(endMessageDetail);
         endMessageDetail.innerHTML="You drive the car out of this place.<br/>Your points is "+(playerState.money+playerState.food)+".";
+        //change player icon and car icon to criminal_escape icon
+        let criminalEscapeImage=document.createElement("img");
+        criminalEscapeImage.setAttribute("class","cellImage");
+        criminalEscapeImage.src="images/criminal_escape.png";
+        gameDiv.appendChild(criminalEscapeImage);
+        criminalEscapeImage.style.top=playerRow*imagewidth+"px";
+        criminalEscapeImage.style.left=playerColumn*imagewidth+"px";
+        playerImage.style.display="none";
+        carImage.style.display="none";
+        //criminal_escape icon move animation
+        moveAnimation(criminalEscapeImage,0,9,.5);
+        setTimeout(() => {
+            moveAnimation(criminalEscapeImage,10,9,3);
+        }, 500);//running after 500ms;
         gameStartBool=false;
 }
 //third ending for give yourself up.
