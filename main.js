@@ -83,11 +83,11 @@ let eventObject={
         }
         else if(randomNumber<0){//lost money
             if(randomNumber+playerState.money<0){
-                informationBoxDiv.innerHTML+="When you is trying find some money, the house owner show up and kick your ass. You lost all your money!"+"<br/><br/>";
+                informationBoxDiv.innerHTML+="When you are trying find some money, the house owner show up and kick your ass. You lost all your money!"+"<br/><br/>";
                 playerState.money=0;
             }
             else{
-                informationBoxDiv.innerHTML+="When you is trying find some money, the house owner show up and kick your ass. You lost $"+Math.abs(randomNumber)+"."+"<br/><br/>";
+                informationBoxDiv.innerHTML+="When you are trying find some money, the house owner show up and kick your ass. You lost $"+Math.abs(randomNumber)+"."+"<br/><br/>";
                 playerState.money=playerState.money+randomNumber;
             }
         }
